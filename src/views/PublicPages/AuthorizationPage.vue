@@ -4,8 +4,12 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import {onMounted} from "vue";
 
+const authorizationHandler = async () => {
+
+}
 </script>
 
 <style scoped>
