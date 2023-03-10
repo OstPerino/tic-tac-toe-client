@@ -1,6 +1,6 @@
 <template>
   <div class="authorization-page">
-<!--    <CustomInput v-model.model-value="login"/>-->
+    Authorization
   </div>
 </template>
 

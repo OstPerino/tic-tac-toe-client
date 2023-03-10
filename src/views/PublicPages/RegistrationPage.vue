@@ -1,5 +1,7 @@
 <template>
-  <div class="registration-page"></div>
+  <div class="registration-page">
+    Registration
+  </div>
 </template>
 
 <script>

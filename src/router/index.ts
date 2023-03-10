@@ -1,12 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import AuthorizationPage from "@/views/PublicPages/AuthorizationPage.vue";
+
+import authorizationModule from "@/router/authorizationModule";
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    name: "Authorization",
-    component: AuthorizationPage,
-    path: "/auth",
-  }
+    ...authorizationModule,
+  // { path: "*", redirect: { path: "/auth" } }
 ];
 
 const router = createRouter({
