@@ -2,7 +2,9 @@
   <div class="registration-page">
     <SubmitForm>
       <template #header>
-        <CustomText text="Регистрация" :font-weight="700" :font-size="'32px'" />
+        <CustomText :font-weight="700" :font-size="'32px'">
+          Регистрация
+        </CustomText>
       </template>
       <template #inputs>
         <CustomInput
@@ -23,7 +25,9 @@
         />
       </template>
       <template #error>
-        <CustomText :text="errorMessage" :font-size="'12px'" />
+        <CustomText :font-size="'12px'">
+          {{ errorMessage }}
+        </CustomText>
       </template>
       <template #links>
         <span>
@@ -45,7 +49,7 @@
 <script setup lang="ts">
 // TODO: Подумать как передавать цвета пропсом по scss
 import { reactive } from "vue";
-import { ref } from "@vue/runtime-core";
+import { ref, Ref } from "@vue/runtime-core";
 import { AxiosError } from "axios";
 import { RegistrationData } from "@/api/userServices/types";
 import { registration } from "@/api/userServices/userService";
@@ -56,7 +60,7 @@ import CustomInput from "@/components/UI/CustomInput.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import { Undefinable } from "@/types";
 
-let errorMessage: Undefinable<string> = ref(undefined);
+const errorMessage = ref<Undefinable<string>>(undefined);
 
 const registrationState = reactive({
   username: "",
@@ -65,13 +69,9 @@ const registrationState = reactive({
 });
 
 const handlerError = (e: AxiosError) => {
-  console.log(e.response.status);
-  switch (e.response.status) {
+  switch (e?.response?.status) {
     case 400:
-      console.log(e.response.status);
-      errorMessage.value =
-        "Пользователь с таким именем или email уже зарегестрирован";
-      console.log(errorMessage);
+      errorMessage.value = "Пользователь с таким именем или email уже зарегестрирован";
       break;
     default:
       break;
@@ -86,7 +86,7 @@ const submitRegistration = async () => {
       password: registrationState.password,
     });
     console.log(response);
-  } catch (e) {
+  } catch (e: any) {
     handlerError(e);
   }
 };

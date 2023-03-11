@@ -4,3 +4,8 @@ export interface RegistrationData {
     password: string,
     email: string,
 }
+
+export interface AuthorizationData {
+    username: string;
+    password: string;
+}

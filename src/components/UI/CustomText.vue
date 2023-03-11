@@ -3,7 +3,7 @@
     class="custom-text"
     :style="{ fontWeight: props.fontWeight, fontSize: props.fontSize }"
   >
-    {{ props.text }}
+    <slot></slot>
   </p>
 </template>
 
@@ -11,11 +11,11 @@
 import { defineProps } from "vue";
 
 const props = defineProps({
-  text: {
-    type: String,
-    required: true,
-    default: "",
-  },
+  // text: {
+  //   type: String,
+  //   required: true,
+  //   default: "",
+  // },
   fontWeight: {
     type: Number,
     required: false,
