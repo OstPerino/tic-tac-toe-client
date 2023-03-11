@@ -7,7 +7,6 @@
       :placeholder="labelValue"
       :class="{ 'has-value': modelValue }"
       :type="isPassword"
-      id="custom-input"
     />
     <label class="custom-input-label" :class="{ active: modelValue }">
       {{ props.labelValue }}
@@ -32,7 +31,7 @@ const props = defineProps({
     type: String,
     required: false,
     default: "text",
-  }
+  },
 });
 
 const onInputHandler = (event: any) => {
@@ -49,7 +48,7 @@ const onInputHandler = (event: any) => {
   width: 100%;
 
   input {
-    font-family: 'Roboto Mono', monospace;
+    font-family: "Roboto Mono", monospace;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -89,5 +88,4 @@ const onInputHandler = (event: any) => {
     }
   }
 }
-
 </style>

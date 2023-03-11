@@ -1,5 +1,6 @@
 <template>
   <form class="registration-form" @click.prevent>
+    <CustomText text="Регистрация" :font-weight="700" :font-size="'32px'" />
     <CustomInput
       :label-value="'User Name'"
       v-model="registrationState.username"
@@ -26,6 +27,9 @@
 import CustomInput from "@/components/UI/CustomInput.vue";
 import { reactive } from "vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
+import CustomText from "@/components/UI/CustomText.vue";
+
+// TODO: Подумать как передавать цвета пропсом по scss
 
 const registrationState = reactive({
   username: "",
@@ -34,8 +38,8 @@ const registrationState = reactive({
 });
 
 const submitRegistration = () => {
-  console.log(111)
-}
+  console.log(111);
+};
 </script>
 
 <style scoped lang="scss">
@@ -44,16 +48,12 @@ const submitRegistration = () => {
 .registration-form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 30px;
   width: 400px;
   margin: auto;
   padding: 25px;
   border: 1px solid #ddd;
   border-radius: 4px;
-
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+  text-align: center;
 }
 </style>
