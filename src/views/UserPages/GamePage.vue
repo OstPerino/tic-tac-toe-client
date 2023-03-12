@@ -1,11 +1,8 @@
 <template>
-$END$
+
 </template>
 
-<script>
-export default {
-name: "GamePage"
-}
+<script setup lang="ts">
 </script>
 
 <style scoped>
