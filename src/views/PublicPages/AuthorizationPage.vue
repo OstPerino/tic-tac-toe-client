@@ -44,7 +44,7 @@ import SubmitForm from "@/components/UI/SubmitForm.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import CustomText from "@/components/UI/CustomText.vue";
 import CustomInput from "@/components/UI/CustomInput.vue";
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const errorMessage = ref<Undefinable<string>>(undefined);
@@ -67,9 +67,9 @@ const errorHandler = (e: AxiosError) => {
 const submitAuthorization = async () => {
   try {
     const response = await authorization(authorizationState);
-    await router.push('/main');
-    localStorage.setItem('token', `Bearer_${response?.data?.token}`)
-    console.log(response);
+    localStorage.setItem("token", `${response?.data?.token}`);
+    await router.push("/main");
+    console.log(111)
   } catch (e: any) {
     errorHandler(e);
   }

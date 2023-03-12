@@ -12,10 +12,10 @@ import {computed, watch} from "vue";
 import { useRoute } from "vue-router";
 import SidebarComponent from "@/components/sidebar/SidebarComponent.vue";
 
-const route = useRoute();
+const route: any = useRoute();
 
 const showSidebar = computed(() => {
-  return route?.meta[0] === "requires";
+  return route.meta.requiresAuth
 });
 </script>
 
@@ -33,6 +33,12 @@ const showSidebar = computed(() => {
     top: 0;
     width: 250px;
     height: 100%;
+  }
+
+  .main {
+    position: absolute;
+    left: 250px;
+    top: 0;
   }
 }
 </style>

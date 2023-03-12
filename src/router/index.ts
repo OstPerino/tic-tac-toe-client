@@ -16,17 +16,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("token");
-  const requires = to.meta.length;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-  if (requires) {
-    if (!token) {
-      next({ path: "/auth" });
-    }
+  if (requiresAuth && !token) {
+    next({ path: "/auth" });
+  } else if (!requiresAuth && token) {
+    localStorage.removeItem("token");
+    next();
   } else {
-    localStorage.removeItem('token');
+    next();
   }
-
-  next();
 });
 
 export default router;

@@ -7,18 +7,18 @@ export default [
     name: "Main",
     component: MainPage,
     path: "/main",
-    meta: ["requires"],
+    meta: { requiresAuth: true }
   },
   {
     name: "LeaderBoard",
     component: LeaderBoardPage,
     path: "/leaders",
-    meta: ["requires"],
+    meta: { requiresAuth: true }
   },
   {
     name: "Game",
     component: GamePage,
     path: "/game",
-    meta: ["requires"],
+    meta: { requiresAuth: true }
   }
 ];
