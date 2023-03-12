@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <SidebarComponent />
+    <SidebarComponent v-if="showSidebar" />
     <div class="main">
       <router-view />
     </div>
@@ -8,7 +8,15 @@
 </template>
 
 <script setup lang="ts">
+import {computed, watch} from "vue";
+import { useRoute } from "vue-router";
 import SidebarComponent from "@/components/sidebar/SidebarComponent.vue";
+
+const route = useRoute();
+
+const showSidebar = computed(() => {
+  return route?.meta[0] === "requires";
+});
 </script>
 
 <style lang="scss">

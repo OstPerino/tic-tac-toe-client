@@ -2,13 +2,13 @@
   <nav class="navbar">
     <ul class="links-list">
       <li>
-        <router-link to="" class="link">Список игр</router-link>
+        <router-link to="/main" class="link">Список игр</router-link>
       </li>
       <li>
-        <router-link to="" class="link">Лучшие результаты</router-link>
+        <router-link to="/leaders" class="link">Лучшие результаты</router-link>
       </li>
       <li>
-        <router-link to="" class="link">Выйти</router-link>
+        <router-link to="/auth" class="link">Выйти</router-link>
       </li>
     </ul>
   </nav>
