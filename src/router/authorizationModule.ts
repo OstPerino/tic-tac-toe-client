@@ -10,6 +10,6 @@ export default [
     {
         name: "Registration",
         component: RegistrationPage,
-        path: "/registration"
+        path: "/registration",
     }
 ]

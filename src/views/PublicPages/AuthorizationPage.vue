@@ -26,7 +26,7 @@
       </template>
       <template #button>
         <CustomButton :disabled="false" @click="submitAuthorization">
-          Зарегестрироваться
+          Войти
         </CustomButton>
       </template>
     </SubmitForm>
@@ -35,16 +35,18 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import { AxiosError } from "axios";
-import { Undefinable } from "@/types";
 import { ref } from "@vue/runtime-core";
+import { AxiosError } from "axios";
 import { authorization } from "@/api/userServices/userService";
+import { Undefinable } from "@/types";
 
 import SubmitForm from "@/components/UI/SubmitForm.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import CustomText from "@/components/UI/CustomText.vue";
 import CustomInput from "@/components/UI/CustomInput.vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const errorMessage = ref<Undefinable<string>>(undefined);
 
 const authorizationState = reactive({
@@ -53,12 +55,20 @@ const authorizationState = reactive({
 });
 
 const errorHandler = (e: AxiosError) => {
-  errorMessage.value = e?.message;
+  switch (e?.response?.status) {
+    case 403:
+      errorMessage.value = "Возможно неверный логин или пароль";
+      break;
+    default:
+      break;
+  }
 };
 
 const submitAuthorization = async () => {
   try {
     const response = await authorization(authorizationState);
+    await router.push('/main');
+    localStorage.setItem('token', `Bearer_${response?.data?.token}`)
     console.log(response);
   } catch (e: any) {
     errorHandler(e);
