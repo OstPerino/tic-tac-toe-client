@@ -4,7 +4,7 @@ export default [
   {
     name: "Main",
     component: MainPage,
-    path: "/route",
+    path: "/main",
     meta: ["requires"],
   },
 ];
