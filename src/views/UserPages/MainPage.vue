@@ -24,26 +24,17 @@ import {
   createLobby,
   getLeaderboard,
 } from "@/api/controlLobbyServices/controlLobbyService";
-import axios from "axios";
 
 const errorMessage = ref<Undefinable<string>>(undefined);
-const fetchLeaderboard = async () => {
-  try {
-    const response = await getLeaderboard();
-    console.log(response);
-  } catch (e: any) {
-    errorMessage.value = e.response.message;
-  }
-};
 
-const createGameLobby = async () => {
-  try {
-    const response = await createLobby();
-    console.log(response);
-  } catch (e) {
-    console.log(e);
-  }
-};
+// const createGameLobby = async () => {
+//   try {
+//     const response = await createLobby();
+//     console.log(response);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 // onMounted(async () => {
 //   await fetchLeaderboard();
