@@ -24,6 +24,14 @@
           {{ errorMessage }}
         </CustomText>
       </template>
+      <template #links>
+        <CustomText>
+          Нет аккаунта?
+          <router-link to="/registration" class="router-link">
+            Зарегестрировать
+          </router-link>
+        </CustomText>
+      </template>
       <template #button>
         <CustomButton :disabled="false" @click="submitAuthorization">
           Войти
@@ -69,7 +77,7 @@ const submitAuthorization = async () => {
     const response = await authorization(authorizationState);
     localStorage.setItem("token", `${response?.data?.token}`);
     await router.push("/main");
-    console.log(111)
+    console.log(111);
   } catch (e: any) {
     errorHandler(e);
   }

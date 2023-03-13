@@ -21,6 +21,10 @@ export async function createLobby() {
   return $api.post("/game/create-game");
 }
 
+export async function deleteLobby(gameId: gameId) {
+  return $api.post(`/game/delete-game/${gameId}`);
+}
+
 export async function joinLobby(gameId: gameId) {
   return $api.post(`/game/join-game/${gameId}`);
 }

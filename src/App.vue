@@ -1,21 +1,27 @@
 <template>
   <div class="app">
     <SidebarComponent v-if="showSidebar" />
-    <div class="main">
+    <div :class="setMainPos" class="main">
       <router-view />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, watch} from "vue";
+import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import SidebarComponent from "@/components/sidebar/SidebarComponent.vue";
 
 const route: any = useRoute();
 
 const showSidebar = computed(() => {
-  return route.meta.requiresAuth
+  return route.meta.requiresAuth;
+});
+
+const setMainPos = computed(() => {
+  if (route.meta.requiresAuth) {
+    return "with-sidebar";
+  }
 });
 </script>
 
@@ -35,7 +41,7 @@ const showSidebar = computed(() => {
     height: 100%;
   }
 
-  .main {
+  .with-sidebar {
     position: absolute;
     left: 250px;
     top: 0;
