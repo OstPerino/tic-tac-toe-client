@@ -1,10 +1,11 @@
 import $api from "@/api";
-import { gameId } from "@/api/controlLobbyServices/types";
+import {gameId, OpenGame} from "@/api/controlLobbyServices/types";
 
 export async function getLeaderboard() {
   return $api.get("/game/get-leaderboard");
 }
 
+// : Promise<OpenGame>
 export async function getOpenGames() {
   return $api.get("/game/get-open-games");
 }

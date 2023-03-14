@@ -1,8 +1,14 @@
 <template>
   <nav class="navbar">
+    <CustomButton :disabled="false" @click="createGameRequest">
+      Создать игру
+    </CustomButton>
     <ul class="links-list">
       <li>
-        <router-link to="/main" class="link">Список игр</router-link>
+        <router-link to="/main" class="link">Открытые игры</router-link>
+      </li>
+      <li>
+        <router-link to="/my-games" class="link">Ваши игры</router-link>
       </li>
       <li>
         <router-link to="/leaders" class="link">Лучшие результаты</router-link>
@@ -15,8 +21,19 @@
 </template>
 
 <script setup lang="ts">
-</script>
+import { createLobby } from "@/api/controlLobbyServices/controlLobbyService";
 
+import CustomButton from "@/components/UI/CustomButton.vue";
+
+const createGameRequest = async () => {
+  try {
+    const response = await createLobby();
+    // TODO: Обновить в сторе мои игры
+  } catch (e) {
+    console.log(e);
+  }
+};
+</script>
 
 <style scoped lang="scss">
 @import "@/styles/_base.scss";

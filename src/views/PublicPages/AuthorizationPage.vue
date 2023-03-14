@@ -42,8 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
 import { ref } from "@vue/runtime-core";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import { AxiosError } from "axios";
 import { authorization } from "@/api/userServices/userService";
 import { Undefinable } from "@/types";
@@ -52,7 +53,6 @@ import SubmitForm from "@/components/UI/SubmitForm.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import CustomText from "@/components/UI/CustomText.vue";
 import CustomInput from "@/components/UI/CustomInput.vue";
-import { useRouter } from "vue-router";
 
 const router = useRouter();
 const errorMessage = ref<Undefinable<string>>(undefined);
@@ -77,7 +77,6 @@ const submitAuthorization = async () => {
     const response = await authorization(authorizationState);
     localStorage.setItem("token", `${response?.data?.token}`);
     await router.push("/main");
-    console.log(111);
   } catch (e: any) {
     errorHandler(e);
   }
