@@ -19,7 +19,7 @@ export default [
   {
     name: "Game",
     component: GamePage,
-    path: "/game",
+    path: "/game/:id",
     meta: { requiresAuth: true }
   },
   {

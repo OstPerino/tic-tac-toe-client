@@ -1,5 +1,5 @@
 <template>
-  <div class="list-item">
+  <div class="list-item" @click="$emit('get:openGame', openGame)">
     {{ `${title} ${openGame?.creator_name}` }}
   </div>
 </template>
