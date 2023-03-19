@@ -46,7 +46,7 @@ const sign = ref("");
 const selectPlayerSign = async (event: any) => {
   try {
     const sign = event.target.value;
-    const requestSign = sign === "X";
+    const requestSign = sign === "x";
     const response = await selectSign({
       gameId: route.params.id,
       sign: requestSign,
