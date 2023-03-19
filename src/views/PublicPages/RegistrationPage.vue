@@ -53,6 +53,7 @@ import { ref, Ref } from "@vue/runtime-core";
 import { AxiosError } from "axios";
 import { RegistrationData } from "@/api/userServices/types";
 import { registration } from "@/api/userServices/userService";
+import { useRouter } from "vue-router";
 
 import SubmitForm from "@/components/UI/SubmitForm.vue";
 import CustomText from "@/components/UI/CustomText.vue";
@@ -60,6 +61,7 @@ import CustomInput from "@/components/UI/CustomInput.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
 import { Undefinable } from "@/types";
 
+const router = useRouter();
 const errorMessage = ref<Undefinable<string>>(undefined);
 
 const registrationState = reactive({
@@ -85,7 +87,7 @@ const submitRegistration = async () => {
       username: registrationState.username,
       password: registrationState.password,
     });
-    console.log(response);
+    await router.push({ path: "/auth" });
   } catch (e: any) {
     handlerError(e);
   }

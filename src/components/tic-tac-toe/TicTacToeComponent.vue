@@ -1,107 +1,143 @@
 <template>
   <div class="tic-tac-toe-component">
-    <div v-for="(row, rowIndex) in board" :key="rowIndex" class="row">
+    <!--  Second version  -->
+    <div v-for="(row, rowIndex) in cells.board" :key="rowIndex" class="row">
       <div
         v-for="(cell, cellIndex) in row"
         :key="cellIndex"
         class="cell"
-        @click="cellClicked(rowIndex, cellIndex)"
+        @click="handleCellClicked(rowIndex, cellIndex)"
       >
-        {{ cell }}
+        {{ drawCellContent(cell) }}
       </div>
     </div>
-    <div v-if="gameOver" class="game-over">{{ winner }} wins!</div>
+    <div class="text-container">
+      <span class="error" v-if="errorMessage">{{ errorMessage }}</span>
+      <span class="winner" v-if="winnerName">Winner is {{ winnerName }}</span>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
 import { ref } from "@vue/runtime-core";
-import { Undefinable } from "@/types";
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
+import { computed, onMounted, onUnmounted, reactive, watch } from "vue";
 
-const board = reactive<Array<Array<Undefinable<string>>>>([
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-]);
-const gameOver = ref<boolean>(false);
-const winner = ref<Undefinable<string>>(undefined);
-const selectedSign = ref<Undefinable<string>>("X");
+import { makeMove } from "@/api/gameServices/gameService";
+import { Nullable, Undefinable } from "@/types";
 
-const cellClicked = (row: number, col: number) => {
-  if (!gameOver.value && board[row][col] === "") {
-    board[row][col] = selectedSign.value;
-    checkForWinner();
-    selectedSign.value = selectedSign.value === "X" ? "O" : "X";
+const router = useRouter();
+const route = useRoute();
+const store = useStore();
+
+const cells = reactive({ board: [] });
+const currentSign = ref<Nullable<boolean | null>>(null);
+const errorMessage = ref<string>("");
+const intervalId = ref<any>(null);
+const winnerName = ref<string>("");
+
+const initBoardState = async () => {
+  const result = await store.dispatch("gameStore/fetchGameState", {
+    id: route.params.id,
+  });
+
+  setSign(result);
+  setCells(result);
+  checkForWinner(result);
+
+  if (result.state !== 200) {
+    console.log(result);
   }
 };
 
-const checkForWinner = () => {
-  // Check rows
-  for (let row = 0; row < 3; row++) {
-    if (
-        board[row][0] === board[row][1] &&
-        board[row][1] === board[row][2] &&
-        board[row][0] !== ""
-    ) {
-      gameOver.value = true;
-      winner.value = board[row][0];
-      return;
+const handleCellClicked = async (row: number, col: number) => {
+  if (cells.board[row][col] === null && !winnerName.value) {
+    try {
+      const response = await makeMove({
+        gameId: route.params.id,
+        cellName: generateCellForRequest(row, col),
+        sign: currentSign.value,
+      });
+      cells.board[row][col] = currentSign.value;
+      console.log(response);
+    } catch (e) {
+      errorMessage.value = e?.response?.data?.reason;
+      console.log(e);
     }
-  }
-
-  // Check columns
-  for (let col = 0; col < 3; col++) {
-    if (
-        board[0][col] === board[1][col] &&
-        board[1][col] === board[2][col] &&
-        board[0][col] !== ""
-    ) {
-      gameOver.value = true;
-      winner.value = board[0][col];
-      return;
-    }
-  }
-
-  // Check diagonals
-  if (
-      board[0][0] === board[1][1] &&
-      board[1][1] === board[2][2] &&
-      board[0][0] !== ""
-  ) {
-    gameOver.value = true;
-    winner.value = board[0][0];
-    return;
-  }
-
-  if (
-      board[0][2] === board[1][1] &&
-      board[1][1] === board[2][0] &&
-      board[0][2] !== ""
-  ) {
-    gameOver.value = true;
-    winner.value = board[0][2];
-    return;
-  }
-
-  // Check for draw
-  let isDraw = true;
-  for (let row = 0; row < 3; row++) {
-    for (let col = 0; col < 3; col++) {
-      if (board[row][col] === "") {
-        isDraw = false;
-        break;
-      }
-    }
-    if (!isDraw) break;
-  }
-
-  if (isDraw) {
-    gameOver.value = true;
-    winner.value = "Draw";
-    return;
   }
 };
+
+const checkForWinner = (result: any) => {
+ if (result.game_winner_id) {
+   winnerName.value = result.game_winner_id;
+ }
+}
+
+const setSign = (result: any) => {
+  currentSign.value = result.o_player_id !== result.current_player_id;
+};
+
+const generateCellForRequest = (row: number, col: number) => {
+  switch (`${row}${col}`) {
+    case "00":
+      return "cell-1";
+    case "01":
+      return "cell-2";
+    case "02":
+      return "cell-3";
+
+    case "10":
+      return "cell-4";
+    case "11":
+      return "cell-5";
+    case "12":
+      return "cell-6";
+
+    case "20":
+      return "cell-7";
+    case "21":
+      return "cell-8";
+    case "22":
+      return "cell-9";
+  }
+};
+
+const setCells = (payload: any) => {
+  const topRow = [payload?.cell_1, payload?.cell_2, payload?.cell_3];
+  const midRow = [payload?.cell_4, payload?.cell_5, payload?.cell_6];
+  const bottomRow = [payload?.cell_7, payload?.cell_8, payload?.cell_9];
+  cells.board = [topRow, midRow, bottomRow];
+};
+
+const drawCellContent = computed(() => (cell: any) => {
+  if (cell === true) {
+    return "X";
+  } else if (cell === false) {
+    return "O";
+  }
+
+  return "";
+});
+
+watch(winnerName, (value) => {
+  clearInterval(intervalId.value);
+});
+
+onMounted(async () => {
+  await initBoardState();
+  if (!store.state["gameStore/gameState"]?.is_ended) {
+    intervalId.value = setInterval(async () => {
+      await initBoardState();
+    }, 2000);
+  } else {
+    clearInterval(intervalId.value);
+  }
+});
+
+onUnmounted(async () => {
+  clearInterval(intervalId.value);
+});
 </script>
 
 <style scoped lang="scss">
@@ -126,5 +162,10 @@ const checkForWinner = () => {
   font-size: 24px;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
 }
 </style>
