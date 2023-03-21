@@ -1,20 +1,20 @@
 <template>
   <nav class="navbar">
-    <CustomButton :disabled="false" @click="createGameRequest">
+    <CustomButton data-cy="btn-create-game" :disabled="false" @click="createGameRequest">
       Создать игру
     </CustomButton>
     <ul class="links-list">
       <li>
-        <router-link to="/main" class="link">Открытые игры</router-link>
+        <router-link data-cy="link-main" to="/main" class="link">Открытые игры</router-link>
       </li>
       <li>
-        <router-link to="/my-games" class="link">Ваши игры</router-link>
+        <router-link data-cy="link-my-games" to="/my-games" class="link">Ваши игры</router-link>
       </li>
       <li>
-        <router-link to="/leaders" class="link">Лучшие результаты</router-link>
+        <router-link data-cy="link-leaders" to="/leaders" class="link">Лучшие результаты</router-link>
       </li>
       <li>
-        <router-link to="/auth" class="link">Выйти</router-link>
+        <router-link data-cy="link-auth" to="/auth" class="link">Выйти</router-link>
       </li>
     </ul>
   </nav>

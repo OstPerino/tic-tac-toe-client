@@ -8,16 +8,19 @@
       </template>
       <template #inputs>
         <CustomInput
+          data-cy="form-input-username"
           :label-value="'Имя пользователя'"
           v-model="registrationState.username"
           @update:model-value="registrationState.username = $event"
         />
         <CustomInput
+          data-cy="form-input-email"
           :label-value="'Email'"
           v-model="registrationState.email"
           @update:model-value="registrationState.email = $event"
         />
         <CustomInput
+          data-cy="form-input-password"
           :label-value="'Пароль'"
           v-model="registrationState.password"
           @update:model-value="registrationState.password = $event"
@@ -38,7 +41,7 @@
         </span>
       </template>
       <template #button>
-        <CustomButton :disabled="false" @click="submitRegistration">
+        <CustomButton data-cy="form-btn-register" :disabled="false" @click="submitRegistration">
           Зарегестрироваться
         </CustomButton>
       </template>

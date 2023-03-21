@@ -5,6 +5,7 @@
       <div class="x">
         <label for="x">X</label>
         <input
+          data-cy="player-sign-cross"
           type="radio"
           id="x"
           @input="selectPlayerSign"
@@ -15,6 +16,7 @@
       <div class="o">
         <label for="o">O</label>
         <input
+          data-cy="player-sign-circle"
           type="radio"
           id="o"
           @input="selectPlayerSign"
