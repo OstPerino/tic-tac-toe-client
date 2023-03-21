@@ -22,5 +22,10 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px;
+
+  .list__item {
+    width: 100%;
+  }
 }
 </style>

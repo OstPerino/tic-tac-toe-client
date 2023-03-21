@@ -23,6 +23,7 @@ const fetchLeaderboard = async () => {
   try {
     const response = await getLeaderboard();
     leaderBoards.value = response.data;
+    // leaderBoards.value.sort((a, b) => a > b)
     // console.log(response);
   } catch (e: any) {
     errorMessage.value = e.response.message;

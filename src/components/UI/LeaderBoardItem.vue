@@ -15,5 +15,12 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-
+.leaderboard-item {
+  border: 1px solid #6d9bf1;
+  padding: 1rem;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 </style>
