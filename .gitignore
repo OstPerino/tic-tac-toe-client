@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # coverage
 cypress/coverage
+cypress/videos
+cypress/screenshots
