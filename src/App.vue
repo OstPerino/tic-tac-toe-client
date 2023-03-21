@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <SidebarComponent v-if="showSidebar" />
-    <div :class="setMainPos" class="main">
+    <div class="main">
       <router-view />
     </div>
   </div>
@@ -17,34 +17,20 @@ const route: any = useRoute();
 const showSidebar = computed(() => {
   return route.meta.requiresAuth;
 });
-
-const setMainPos = computed(() => {
-  if (route.meta.requiresAuth) {
-    return "with-sidebar";
-  }
-});
 </script>
 
 <style lang="scss">
 @import "@/styles/_base.scss";
 
 .app {
-  position: relative;
+  display: flex;
   width: 100%;
   height: 100%;
 
   .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
     width: 250px;
     height: 100%;
   }
 
-  .with-sidebar {
-    position: absolute;
-    left: 250px;
-    top: 0;
-  }
 }
 </style>
