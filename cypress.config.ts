@@ -1,3 +1,4 @@
+import mysql2 from 'mysql2/promise';
 import dotenv from 'dotenv';
 import { defineConfig } from "cypress";
 
@@ -13,6 +14,7 @@ export default defineConfig({
       apiBaseUrl: `http://${process.env.VUE_APP_API_DOMAIN}:${process.env.VUE_APP_API_PORT}/api`,
     },
     setupNodeEvents(on, config) {
+      require('@cypress/code-coverage/task')(on, config);
       on('task', {
         async clearDatabase() {
           const connection = await mysql2.createConnection({
