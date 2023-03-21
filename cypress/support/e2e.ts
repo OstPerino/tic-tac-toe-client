@@ -15,12 +15,14 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import '@cypress/code-coverage/support';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
 import '@cypress/code-coverage/support';
+import { slowCypressDown } from 'cypress-slow-down'
+// slowCypressDown(150);
+
 beforeEach(() => {
   Cypress.session.clearAllSavedSessions();
   cy.task('clearDatabase');
