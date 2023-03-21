@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-    <ListComponent :items="openGames">
+    <ListComponent data-cy="list-open-games" :items="openGames">
       <template #item="{ item: openGame }">
         <ListItem
           :open-game="openGame"

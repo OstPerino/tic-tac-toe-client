@@ -1,6 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 
-const API_URL = `http://${process.env.VUE_APP_API_DOMAIN}:${process.env.VUE_APP_API_PORT}/api`;
+let API_URL = `http://${process.env.VUE_APP_API_DOMAIN}:${process.env.VUE_APP_API_PORT}/api`;
+
+// @ts-ignore
+if(window.Cypress) {
+  // @ts-ignore
+  API_URL = Cypress.env('apiBaseUrl');
+}
 
 const $api: AxiosInstance = axios.create({
   baseURL: API_URL,

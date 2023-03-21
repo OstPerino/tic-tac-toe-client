@@ -22,3 +22,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# coverage
+cypress/coverage
+cypress/videos
+cypress/screenshots

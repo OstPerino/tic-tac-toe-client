@@ -8,11 +8,13 @@
       </template>
       <template #inputs>
         <CustomInput
+          data-cy="form-input-username"
           :label-value="'Имя пользователя'"
           v-model="authorizationState.username"
           @update:model-value="authorizationState.username = $event"
         />
         <CustomInput
+          data-cy="form-input-password"
           :label-value="'Пароль'"
           v-model="authorizationState.password"
           @update:model-value="authorizationState.password = $event"
@@ -27,13 +29,13 @@
       <template #links>
         <CustomText>
           Нет аккаунта?
-          <router-link to="/registration" class="router-link">
+          <router-link data-cy='form-link-registration' to="/registration" class="router-link">
             Зарегестрировать
           </router-link>
         </CustomText>
       </template>
       <template #button>
-        <CustomButton :disabled="false" @click="submitAuthorization">
+        <CustomButton data-cy="form-btn-login" :disabled="false" @click="submitAuthorization">
           Войти
         </CustomButton>
       </template>

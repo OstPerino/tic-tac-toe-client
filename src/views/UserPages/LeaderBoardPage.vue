@@ -1,6 +1,6 @@
 <template>
   <div class="leaderboard-page">
-    <ListComponent :items="leaderBoards">
+    <ListComponent data-cy="list-leaders" :items="leaderBoards">
       <template #item="{ item: leaderBoard }">
         <LeaderBoardItem :leader-board="leaderBoard" title="Моя игра" />
       </template>

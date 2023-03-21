@@ -1,7 +1,7 @@
 <template>
   <div class="list-item">
     <span> {{ `${title} ${openGame?.creator_name}` }} </span>
-    <CustomButton :disabled="false" @click="$emit('get:openGame', openGame)">
+    <CustomButton data-cy="btn-join" :disabled="false" @click="$emit('get:openGame', openGame)">
       Присоединиться
     </CustomButton>
   </div>

@@ -6,14 +6,15 @@
         v-for="(cell, cellIndex) in row"
         :key="cellIndex"
         class="cell"
+        :data-cy="`cell-${rowIndex}-${cellIndex}`"
         @click="handleCellClicked(rowIndex, cellIndex)"
       >
         {{ drawCellContent(cell) }}
       </div>
     </div>
     <div class="text-container">
-      <span class="error" v-if="errorMessage">{{ errorMessage }}</span>
-      <span class="winner" v-if="winnerName">Winner is {{ winnerName }}</span>
+      <span data-cy="error" class="error" v-if="errorMessage">{{ errorMessage }}</span>
+      <span data-cy="winner" class="winner" v-if="winnerName">Winner is {{ winnerName }}</span>
     </div>
   </div>
 </template>

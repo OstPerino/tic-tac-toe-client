@@ -1,6 +1,6 @@
 <template>
   <div class="game-page">
-    <TicTacToeComponent />
+    <TicTacToeComponent data-cy="game-grid" />
     <ChooseXorO />
   </div>
 </template>
